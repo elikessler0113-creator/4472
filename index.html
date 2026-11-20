@@ -388,6 +388,38 @@
         Send Test Push Notification
       </button>
     </div>
+    <!-- Phone Fast-Forward Bar (Synced with Scheduler Clock) -->
+    <div class="card notif-clock-bar" aria-label="Fast-forward demo clock">
+      <div class="clock-controls">
+        <span class="clock-label">Phone Clock:</span>
+        <select id="notif-day-select" class="clock-input" aria-label="Simulated day">
+          <option value="0" selected>Mon, Nov 23</option>
+          <option value="1">Tue, Nov 24</option>
+          <option value="2">Wed, Nov 25</option>
+          <option value="3">Thu, Nov 26</option>
+          <option value="4">Fri, Nov 27</option>
+        </select>
+        <input
+          type="time"
+          id="notif-time-input"
+          class="clock-input"
+          value="08:30"
+          min="08:00"
+          max="17:45"
+          step="60"
+          aria-label="Simulated time"
+        />
+        <button type="button" class="btn btn-subtle clock-jump-btn" id="notif-jump-15m">+15m</button>
+        <button type="button" class="btn btn-subtle clock-jump-btn" id="notif-jump-1h">+1 Hr</button>
+        <button type="button" class="btn btn-primary clock-jump-btn" id="notif-jump-next">
+          Jump to Next Nudge &raquo;
+        </button>
+      </div>
+
+      <span class="reschedule-status" id="notif-clock-status" aria-live="polite">
+        Waiting for next scheduled gap
+      </span>
+    </div>
 
     <div class="notifications-layout">
       <!-- Left: Notification Rules & Controls -->
