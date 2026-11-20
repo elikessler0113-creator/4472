@@ -839,3 +839,446 @@ button, input, select {
   opacity: 0.7;
   cursor: wait;
 }
+/* =========================================
+   Multi-View Visibility & Shared Page Layout
+   ========================================= */
+.is-hidden {
+  display: none !important;
+}
+
+.page-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1.5rem 1.75rem 3rem;
+}
+
+.page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.page-header h2 {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+}
+
+.page-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-top: 0.2rem;
+}
+
+/* =========================================
+   Assignments View
+   ========================================= */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.stat-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.stat-value {
+  font-family: var(--font-serif);
+  font-size: 1.65rem;
+  color: var(--text-primary);
+}
+
+.accent-text {
+  color: var(--accent);
+}
+
+.assignments-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 1.25rem;
+}
+
+.assignment-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.assignment-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.assignment-card-title {
+  font-size: 1.1rem;
+  color: var(--text-primary);
+}
+
+.assignment-due-badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--primary);
+  background-color: var(--primary-soft);
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.progress-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.35rem;
+}
+
+.progress-track {
+  width: 100%;
+  height: 8px;
+  background-color: var(--bg-subtle);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: var(--accent);
+  border-radius: 999px;
+  transition: width 0.25s ease;
+}
+
+.assignment-checklist {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.checklist-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding: 0.5rem 0.65rem;
+  background-color: var(--bg-page);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 0.83rem;
+}
+
+.checklist-label {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  cursor: pointer;
+  flex: 1;
+  min-width: 0;
+}
+
+.checklist-label input[type="checkbox"] {
+  accent-color: var(--accent);
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+
+.checklist-row.is-completed .checklist-text {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+.checklist-slot {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.assignment-card-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 0.4rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.btn-danger-link {
+  background: none;
+  border: none;
+  color: #b42318;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.2rem 0.4rem;
+  border-radius: var(--radius-sm);
+}
+
+.btn-danger-link:hover {
+  background-color: #fef3f2;
+}
+
+.empty-state-card {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  color: var(--text-secondary);
+}
+
+/* =========================================
+   Notifications View & Phone Mockup
+   ========================================= */
+.notifications-layout {
+  display: grid;
+  grid-template-columns: minmax(300px, 440px) 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.settings-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.select-input {
+  width: 100%;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+}
+
+.toggle-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  border-top: 1px solid var(--border-color);
+  padding-top: 1rem;
+}
+
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  cursor: pointer;
+}
+
+.toggle-row strong {
+  display: block;
+  font-size: 0.86rem;
+}
+
+.toggle-row p {
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+}
+
+.toggle-row input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+.demo-tip-box {
+  background-color: var(--primary-soft);
+  border-left: 3px solid var(--primary);
+  padding: 0.75rem 0.9rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  color: var(--class-text);
+}
+
+/* Phone Mockup */
+.phone-stage {
+  display: flex;
+  justify-content: center;
+}
+
+.phone-frame {
+  width: 345px;
+  min-height: 620px;
+  background: linear-gradient(165deg, #1b1629 0%, #152329 55%, #121820 100%);
+  border: 10px solid #101318;
+  border-radius: 42px;
+  padding: 0.85rem 1rem 1.4rem;
+  color: #f4f6f8;
+  box-shadow: 0 22px 50px rgba(20, 24, 31, 0.24);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.phone-notch {
+  width: 105px;
+  height: 22px;
+  background-color: #0b0d11;
+  border-radius: 999px;
+  margin: 0 auto -12px;
+}
+
+.phone-status-bar {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #d6dde6;
+  padding: 0 0.35rem;
+}
+
+.phone-lock-header {
+  text-align: center;
+  margin: 0.5rem 0 0.25rem;
+}
+
+.phone-date {
+  font-size: 0.82rem;
+  color: #c5ced9;
+}
+
+.phone-big-time {
+  font-size: 3.1rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+.phone-notification-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  overflow-y: auto;
+  max-height: 390px;
+  padding-right: 2px;
+}
+
+.phone-notif-card {
+  background: rgba(255, 255, 255, 0.11);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  padding: 0.8rem 0.85rem;
+  animation: chunkPopIn 0.25s ease-out;
+}
+
+.phone-notif-card.is-live-ping {
+  border-color: #9bd6c2;
+  box-shadow: 0 0 0 2px rgba(155, 214, 194, 0.3);
+}
+
+.phone-notif-top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: #b7c2d0;
+  margin-bottom: 0.3rem;
+}
+
+.phone-notif-app {
+  font-weight: 700;
+  color: #9bd6c2;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.phone-notif-msg {
+  font-size: 0.8rem;
+  line-height: 1.38;
+  margin-bottom: 0.65rem;
+}
+
+.phone-notif-actions {
+  display: flex;
+  gap: 0.45rem;
+}
+
+.phone-btn {
+  flex: 1;
+  border: none;
+  border-radius: 8px;
+  padding: 0.4rem 0.5rem;
+  font-size: 0.74rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s ease, transform 0.1s ease;
+}
+
+.phone-btn:hover {
+  opacity: 0.92;
+}
+
+.phone-btn-accent {
+  background-color: var(--accent);
+  color: #ffffff;
+}
+
+.phone-btn-secondary {
+  background-color: rgba(255, 255, 255, 0.16);
+  color: #f4f6f8;
+}
+
+.phone-btn-ghost {
+  background-color: transparent;
+  color: #b7c2d0;
+  flex: 0 0 auto;
+}
+
+/* Built-in Phone Focus Timer */
+.phone-timer-panel {
+  background: rgba(30, 122, 92, 0.22);
+  border: 1px solid #9bd6c2;
+  border-radius: 16px;
+  padding: 0.9rem;
+  text-align: center;
+}
+
+.timer-badge {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #9bd6c2;
+  margin-bottom: 0.25rem;
+}
+
+.timer-task-title {
+  font-size: 0.84rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.timer-countdown {
+  font-family: var(--font-serif);
+  font-size: 2.3rem;
+  font-weight: 700;
+  margin-bottom: 0.65rem;
+}
+
+.timer-actions {
+  display: flex;
+  gap: 0.4rem;
+}
+
+@media (max-width: 900px) {
+  .notifications-layout {
+    grid-template-columns: 1fr;
+  }
+}
