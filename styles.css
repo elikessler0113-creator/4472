@@ -771,3 +771,71 @@ button, input, select {
     padding: 1rem;
   }
 }
+/* =========================================
+   Interactive & Demo States
+   ========================================= */
+.upload-zone.is-dragover,
+.upload-zone.has-file {
+  border-color: var(--accent);
+  background-color: var(--accent-soft);
+}
+
+.chunk-item {
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.chunk-item:hover,
+.chunk-item.is-selected {
+  background-color: var(--accent-soft);
+  border-color: var(--accent-border);
+}
+
+.chunk-item.is-completed .chunk-title {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+.chunk-empty {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 0.75rem 0.5rem;
+}
+
+.event-chunk.is-completed {
+  opacity: 0.6;
+  background-color: var(--bg-subtle);
+  border-color: var(--border-strong);
+  border-left-color: var(--text-muted);
+  color: var(--text-secondary);
+}
+
+.event-chunk.is-completed .event-title {
+  text-decoration: line-through;
+}
+
+.event-chunk.is-highlighted {
+  box-shadow: 0 0 0 3px rgba(30, 122, 92, 0.35);
+  z-index: 12;
+}
+
+@keyframes chunkPopIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.event-chunk.is-pop-in {
+  animation: chunkPopIn 0.25s ease-out forwards;
+}
+
+.btn:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
