@@ -17,11 +17,12 @@
       </div>
     </div>
 
-    <nav class="main-nav" aria-label="Primary">
-      <a href="#" class="nav-link active">Scheduler</a>
-      <a href="#" class="nav-link">Assignments</a>
-      <a href="#" class="nav-link">Notifications</a>
+          <nav class="main-nav" aria-label="Primary">
+      <a href="#scheduler" class="nav-link active" data-view="scheduler">Scheduler</a>
+      <a href="#assignments" class="nav-link" data-view="assignments">Assignments</a>
+      <a href="#notifications" class="nav-link" data-view="notifications">Notifications</a>
     </nav>
+
 
     <div class="topbar-actions">
       <span class="demo-badge">Live Demo Mode</span>
@@ -30,7 +31,7 @@
   </header>
 
   <!-- Main Workspace -->
-  <main class="workspace">
+  <main class="workspace view-panel" id="view-scheduler">
     <!-- Left Sidebar: Upload, Presets, Breakdown, Notification Preview -->
     <aside class="sidebar">
       <!-- Upload & Preset Card -->
@@ -307,6 +308,140 @@
       </div>
     </section>
   </main>
+    <!-- =========================================
+       View 2: Assignments Tracker
+       ========================================= -->
+  <section class="page-container view-panel is-hidden" id="view-assignments" aria-labelledby="assignments-heading">
+    <div class="page-header">
+      <div>
+        <h2 id="assignments-heading">Active Assignments</h2>
+        <p class="page-subtitle">Track rubric progress and check off micro-chunks across your week.</p>
+      </div>
+      <button type="button" class="btn btn-primary" id="add-assignment-jump-btn">
+        + Add Assignment Rubric
+      </button>
+    </div>
+
+    <!-- Top Metrics Strip -->
+    <div class="stats-grid">
+      <div class="card stat-card">
+        <span class="stat-label">Active Assignments</span>
+        <strong class="stat-value" id="stat-assignments">0</strong>
+      </div>
+      <div class="card stat-card">
+        <span class="stat-label">Chunks Completed</span>
+        <strong class="stat-value" id="stat-completed">0 / 0</strong>
+      </div>
+      <div class="card stat-card">
+        <span class="stat-label">Scheduled Study Time</span>
+        <strong class="stat-value" id="stat-minutes">0 min</strong>
+      </div>
+      <div class="card stat-card">
+        <span class="stat-label">Overall Completion</span>
+        <strong class="stat-value accent-text" id="stat-progress">0%</strong>
+      </div>
+    </div>
+
+    <!-- Assignment Cards Container (Populated by JS) -->
+    <div class="assignments-grid" id="assignments-grid"></div>
+  </section>
+
+  <!-- =========================================
+       View 3: Mobile Notifications Simulator
+       ========================================= -->
+  <section class="page-container view-panel is-hidden" id="view-notifications" aria-labelledby="notifications-heading">
+    <div class="page-header">
+      <div>
+        <h2 id="notifications-heading">Mobile Nudge Engine</h2>
+        <p class="page-subtitle">Configure smart reminders and test interactive phone notifications live.</p>
+      </div>
+      <button type="button" class="btn btn-primary" id="simulate-nudge-btn">
+        Send Test Push Notification
+      </button>
+    </div>
+
+    <div class="notifications-layout">
+      <!-- Left: Notification Rules & Controls -->
+      <div class="card settings-card">
+        <div class="card-header">
+          <h2>Reminder Preferences</h2>
+          <span class="pill">Smart Delivery</span>
+        </div>
+
+        <div class="settings-group">
+          <label for="notif-lead-time" class="field-label">Notify me before a chunk starts</label>
+          <select id="notif-lead-time" class="select-input">
+            <option value="0">Right when the gap starts</option>
+            <option value="5" selected>5 minutes before</option>
+            <option value="10">10 minutes before</option>
+          </select>
+        </div>
+
+        <div class="settings-group">
+          <label for="notif-tone" class="field-label">Nudge coaching style</label>
+          <select id="notif-tone" class="select-input">
+            <option value="encouraging" selected>Encouraging &amp; low-stress</option>
+            <option value="direct">Short &amp; direct</option>
+            <option value="accountability">Deadline-focused</option>
+          </select>
+        </div>
+
+        <div class="toggle-list">
+          <label class="toggle-row">
+            <div>
+              <strong>Auto-Mute During Class &amp; Work</strong>
+              <p>Never buzz while a calendar block is active</p>
+            </div>
+            <input type="checkbox" id="notif-quiet-hours" checked />
+          </label>
+
+          <label class="toggle-row">
+            <div>
+              <strong>Smart Gap Rescue</strong>
+              <p>Auto-reschedule snoozed chunks to the next free gap</p>
+            </div>
+            <input type="checkbox" id="notif-smart-gaps" checked />
+          </label>
+        </div>
+
+        <div class="demo-tip-box">
+          <strong>Live Demo Tip:</strong> Tap <em>Start Timer</em> or <em>Snooze 15m</em> on any notification in the phone preview to show how student actions sync directly back to the calendar.
+        </div>
+      </div>
+
+      <!-- Right: Interactive Phone Mockup -->
+      <div class="phone-stage">
+        <div class="phone-frame" aria-label="Interactive phone notification preview">
+          <div class="phone-notch"></div>
+          <div class="phone-status-bar">
+            <span id="phone-screen-clock">10:15</span>
+            <span>5G &middot; 94%</span>
+          </div>
+
+          <div class="phone-lock-header">
+            <p class="phone-date">Monday, November 23</p>
+            <p class="phone-big-time">10:15</p>
+          </div>
+
+          <!-- Active Focus Timer Panel (Hidden until user starts a chunk) -->
+          <div class="phone-timer-panel is-hidden" id="phone-timer-panel">
+            <span class="timer-badge">Focus Session Active</span>
+            <p class="timer-task-title" id="timer-task-title">Review prompt &amp; rubric</p>
+            <div class="timer-countdown" id="timer-countdown">10:00</div>
+            <div class="timer-actions">
+              <button type="button" class="phone-btn phone-btn-secondary" id="timer-toggle-btn">Pause</button>
+              <button type="button" class="phone-btn phone-btn-accent" id="timer-complete-btn">Mark Done</button>
+              <button type="button" class="phone-btn phone-btn-ghost" id="timer-close-btn">Close</button>
+            </div>
+          </div>
+
+          <!-- Push Notification Stack (Populated by JS) -->
+          <div class="phone-notification-stack" id="phone-notification-stack"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <script src="app.js" defer></script>
 </body>
 </html>
