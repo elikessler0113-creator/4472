@@ -1414,3 +1414,45 @@ button, input, select {
   margin-left: 0.35rem;
   flex-shrink: 0;
 }
+/* =========================================
+   Notifications Fast-Forward & Quiet States
+   ========================================= */
+.notif-clock-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.85rem 1.15rem;
+  margin-bottom: 1.5rem;
+}
+
+.phone-quiet-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px dashed rgba(255, 255, 255, 0.18);
+  border-radius: 16px;
+  padding: 1rem 0.9rem;
+  text-align: center;
+}
+
+.phone-quiet-title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #e6ecf2;
+  margin-bottom: 0.25rem;
+}
+
+.phone-quiet-sub {
+  font-size: 0.74rem;
+  color: #aeb7c4;
+  line-height: 1.4;
+}
+
+.phone-notif-card.is-rescued {
+  background: rgba(108, 70, 150, 0.28);
+  border-color: rgba(196, 169, 232, 0.45);
+}
+
+.phone-notif-card.is-rescued .phone-notif-app {
+  color: #d8c2f5;
+}
