@@ -173,6 +173,35 @@
           </span>
         </div>
       </div>
+      <!-- Interactive Demo Time-Travel Bar -->
+      <div class="demo-clock-bar" aria-label="Simulate current date and time">
+        <div class="clock-controls">
+          <span class="clock-label">Demo Clock:</span>
+          <select id="demo-day-select" class="clock-input" aria-label="Simulated day">
+            <option value="0" selected>Mon, Nov 23</option>
+            <option value="1">Tue, Nov 24</option>
+            <option value="2">Wed, Nov 25</option>
+            <option value="3">Thu, Nov 26</option>
+            <option value="4">Fri, Nov 27</option>
+          </select>
+          <input
+            type="time"
+            id="demo-time-input"
+            class="clock-input"
+            value="08:30"
+            min="08:00"
+            max="17:45"
+            step="300"
+            aria-label="Simulated time"
+          />
+          <button type="button" class="btn btn-subtle clock-jump-btn" id="jump-hour-btn">+1 Hr</button>
+          <button type="button" class="btn btn-subtle clock-jump-btn" id="jump-day-btn">Next Day</button>
+        </div>
+
+        <span class="reschedule-status" id="reschedule-status" aria-live="polite">
+          Live auto-rescheduling active
+        </span>
+      </div>
 
       <!-- Calendar Grid Container -->
       <div class="calendar-scroll">
