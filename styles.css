@@ -1282,3 +1282,135 @@ button, input, select {
     grid-template-columns: 1fr;
   }
 }
+/* =========================================
+   Demo Clock Bar & Calendar Time Indicator
+   ========================================= */
+.demo-clock-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.65rem 1.35rem;
+  background-color: var(--bg-page);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.clock-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.clock-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.clock-input {
+  padding: 0.3rem 0.55rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.clock-input:focus {
+  outline: 2px solid var(--primary-soft);
+  border-color: var(--primary);
+}
+
+.clock-jump-btn {
+  font-size: 0.76rem;
+  padding: 0.32rem 0.65rem;
+}
+
+.reschedule-status {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  padding: 0.22rem 0.6rem;
+  border-radius: 999px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  transition: all 0.2s ease;
+}
+
+.reschedule-status.has-update {
+  color: var(--accent);
+  background-color: var(--accent-soft);
+  border-color: var(--accent-border);
+}
+
+.reschedule-status.has-warning {
+  color: #b54708;
+  background-color: #fffaeb;
+  border-color: #fedf89;
+}
+
+/* Shaded past time on calendar */
+.past-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: calc(var(--past-height) * var(--minute-height));
+  background-color: rgba(28, 32, 38, 0.045);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Live "Now" horizontal line */
+.now-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--now) * var(--minute-height));
+  height: 2px;
+  background-color: #d92d20;
+  z-index: 14;
+  pointer-events: none;
+}
+
+.now-line::before {
+  content: "";
+  position: absolute;
+  left: -4px;
+  top: -3px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #d92d20;
+}
+
+/* Visual cues for auto-rescheduled & tight-deadline chunks */
+.event-chunk.is-rescheduled {
+  border-style: dashed;
+  border-left-style: solid;
+  border-color: var(--primary);
+  background-color: #eef8f4;
+}
+
+.event-chunk.is-at-risk {
+  background-color: #fef3f2;
+  border-color: #fecdca;
+  border-left-color: #d92d20;
+  color: #912018;
+}
+
+.chunk-badge-moved {
+  font-size: 0.66rem;
+  font-weight: 700;
+  color: var(--primary);
+  background-color: var(--primary-soft);
+  padding: 0.08rem 0.38rem;
+  border-radius: 4px;
+  margin-left: 0.35rem;
+  flex-shrink: 0;
+}
