@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paced — Micro-Chunk Assignment Scheduler</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Top Navigation -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">P</div>
+      <div>
+        <h1 class="brand-name">Paced</h1>
+        <p class="brand-tagline">Smart micro-scheduling for students</p>
+      </div>
+    </div>
+
+    <nav class="main-nav" aria-label="Primary">
+      <a href="#" class="nav-link active">Scheduler</a>
+      <a href="#" class="nav-link">Assignments</a>
+      <a href="#" class="nav-link">Notifications</a>
+    </nav>
+
+    <div class="topbar-actions">
+      <span class="demo-badge">Live Demo Mode</span>
+      <button type="button" class="btn btn-outline" id="reset-demo-btn">Reset Demo</button>
+    </div>
+  </header>
+
+  <!-- Main Workspace -->
+  <main class="workspace">
+    <!-- Left Sidebar: Upload, Presets, Breakdown, Notification Preview -->
+    <aside class="sidebar">
+      <!-- Upload & Preset Card -->
+      <section class="card" aria-labelledby="upload-heading">
+        <div class="card-header">
+          <h2 id="upload-heading">Add Assignment</h2>
+          <span class="pill">Rubric Parser</span>
+        </div>
+
+        <label for="rubric-file" class="upload-zone" id="upload-zone">
+          <input type="file" id="rubric-file" accept=".pdf,.doc,.docx,.txt" hidden />
+          <div class="upload-icon" aria-hidden="true">&#8682;</div>
+          <p class="upload-title">Drop assignment rubric here</p>
+          <p class="upload-subtitle">PDF, DOCX, or TXT &middot; or click to browse</p>
+        </label>
+
+        <!-- Quick Demo Presets for Live Presentation -->
+        <div class="preset-group">
+          <p class="field-label">Or load a demo preset:</p>
+          <div class="preset-buttons">
+            <button type="button" class="preset-btn active" data-preset="case-study">
+              Case Study
+            </button>
+            <button type="button" class="preset-btn" data-preset="research-paper">
+              Research Paper
+            </button>
+            <button type="button" class="preset-btn" data-preset="lab-report">
+              Lab Report
+            </button>
+          </div>
+        </div>
+
+        <!-- Scheduling Controls -->
+        <form class="schedule-form" id="schedule-form">
+          <div class="form-row">
+            <div class="form-field">
+              <label for="due-date" class="field-label">Due Date</label>
+              <input type="date" id="due-date" value="2026-11-27" />
+            </div>
+            <div class="form-field">
+              <label for="chunk-length" class="field-label">Chunk Size</label>
+              <select id="chunk-length">
+                <option value="5-10">5–10 min (Quick)</option>
+                <option value="10-15" selected>10–15 min (Balanced)</option>
+                <option value="15-20">15–20 min (Deep Focus)</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-full" id="generate-btn">
+            Break Down &amp; Auto-Schedule
+          </button>
+        </form>
+      </section>
+
+      <!-- Parsed Rubric Chunks Preview -->
+      <section class="card" aria-labelledby="chunks-heading">
+        <div class="card-header">
+          <h2 id="chunks-heading">Generated Micro-Chunks</h2>
+          <span class="chunk-count" id="chunk-count">4 tasks &middot; 55m</span>
+        </div>
+
+        <p class="assignment-meta">
+          <strong>Market Entry Case Study</strong> &middot; Due Fri 11:59 PM
+        </p>
+
+        <ul class="chunk-list" id="chunk-list">
+          <li class="chunk-item is-scheduled">
+            <div class="chunk-item-main">
+              <span class="chunk-dot"></span>
+              <span class="chunk-title">Review prompt &amp; rubric criteria</span>
+            </div>
+            <span class="chunk-duration">10 min</span>
+          </li>
+          <li class="chunk-item is-scheduled">
+            <div class="chunk-item-main">
+              <span class="chunk-dot"></span>
+              <span class="chunk-title">Highlight key SWOT data points</span>
+            </div>
+            <span class="chunk-duration">15 min</span>
+          </li>
+          <li class="chunk-item is-scheduled">
+            <div class="chunk-item-main">
+              <span class="chunk-dot"></span>
+              <span class="chunk-title">Draft 3 strategic recommendations</span>
+            </div>
+            <span class="chunk-duration">20 min</span>
+          </li>
+          <li class="chunk-item is-scheduled">
+            <div class="chunk-item-main">
+              <span class="chunk-dot"></span>
+              <span class="chunk-title">Format citations &amp; proofread</span>
+            </div>
+            <span class="chunk-duration">10 min</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Mobile Notification Preview Widget -->
+      <section class="card notification-card" aria-labelledby="alert-heading">
+        <div class="card-header">
+          <h2 id="alert-heading">Next Mobile Nudge</h2>
+          <span class="status-dot">Scheduled</span>
+        </div>
+        <div class="phone-toast">
+          <div class="phone-toast-header">
+            <span class="toast-app">Paced</span>
+            <span class="toast-time">Mon &middot; 10:15 AM</span>
+          </div>
+          <p class="toast-body">
+            You have a 15-minute gap before your next class. Knock out
+            <strong>Review prompt &amp; rubric criteria (10m)</strong>?
+          </p>
+        </div>
+      </section>
+    </aside>
+
+    <!-- Right Main Panel: Calendar View -->
+    <section class="calendar-panel card" aria-labelledby="calendar-heading">
+      <div class="calendar-toolbar">
+        <div class="calendar-title-group">
+          <h2 id="calendar-heading">Week of Nov 23 – 27</h2>
+          <div class="calendar-nav">
+            <button type="button" class="icon-btn" aria-label="Previous week">&lsaquo;</button>
+            <button type="button" class="btn btn-subtle">Today</button>
+            <button type="button" class="icon-btn" aria-label="Next week">&rsaquo;</button>
+          </div>
+        </div>
+
+        <div class="calendar-legend" aria-label="Schedule legend">
+          <span class="legend-item">
+            <span class="legend-swatch swatch-class"></span> Class
+          </span>
+          <span class="legend-item">
+            <span class="legend-swatch swatch-work"></span> Work
+          </span>
+          <span class="legend-item">
+            <span class="legend-swatch swatch-chunk"></span> Micro-Chunk
+          </span>
+        </div>
+      </div>
+
+      <!-- Calendar Grid Container -->
+      <div class="calendar-scroll">
+        <!-- Sticky Day Headers -->
+        <div class="calendar-days-header">
+          <div class="time-gutter-header"></div>
+          <div class="day-header is-today">
+            <span class="day-name">Mon</span>
+            <span class="day-date">23</span>
+          </div>
+          <div class="day-header">
+            <span class="day-name">Tue</span>
+            <span class="day-date">24</span>
+          </div>
+          <div class="day-header">
+            <span class="day-name">Wed</span>
+            <span class="day-date">25</span>
+          </div>
+          <div class="day-header">
+            <span class="day-name">Thu</span>
+            <span class="day-date">26</span>
+          </div>
+          <div class="day-header">
+            <span class="day-name">Fri</span>
+            <span class="day-date">27</span>
+          </div>
+        </div>
+
+        <!-- Hourly Grid & Positioned Events -->
+        <!-- Positioning uses minutes elapsed since 8:00 AM (--start) and length (--duration) -->
+        <div class="calendar-body">
+          <!-- Time Labels Column (8 AM to 6 PM) -->
+          <div class="time-gutter" aria-hidden="true">
+            <div class="time-slot-label">8 AM</div>
+            <div class="time-slot-label">9 AM</div>
+            <div class="time-slot-label">10 AM</div>
+            <div class="time-slot-label">11 AM</div>
+            <div class="time-slot-label">12 PM</div>
+            <div class="time-slot-label">1 PM</div>
+            <div class="time-slot-label">2 PM</div>
+            <div class="time-slot-label">3 PM</div>
+            <div class="time-slot-label">4 PM</div>
+            <div class="time-slot-label">5 PM</div>
+          </div>
+
+          <!-- Monday Column -->
+          <div class="day-column" data-day="mon">
+            <article class="event event-class" style="--start: 60; --duration: 75;">
+              <span class="event-time">9:00 – 10:15</span>
+              <h3 class="event-title">Entrepreneurship Seminar</h3>
+            </article>
+
+            <!-- Smart 10-min Chunk fitted right into a gap -->
+            <article class="event event-chunk" style="--start: 140; --duration: 15;">
+              <span class="event-title">10m: Review prompt &amp; rubric</span>
+            </article>
+
+            <article class="event event-class" style="--start: 180; --duration: 60;">
+              <span class="event-time">11:00 – 12:00</span>
+              <h3 class="event-title">Operations Strategy</h3>
+            </article>
+
+            <article class="event event-work" style="--start: 300; --duration: 240;">
+              <span class="event-time">1:00 – 5:00</span>
+              <h3 class="event-title">Part-Time Shift</h3>
+            </article>
+          </div>
+
+          <!-- Tuesday Column -->
+          <div class="day-column" data-day="tue">
+            <article class="event event-class" style="--start: 90; --duration: 75;">
+              <span class="event-time">9:30 – 10:45</span>
+              <h3 class="event-title">Financial Management</h3>
+            </article>
+
+            <article class="event event-chunk" style="--start: 180; --duration: 15;">
+              <span class="event-title">15m: Highlight SWOT points</span>
+            </article>
+
+            <article class="event event-class" style="--start: 240; --duration: 75;">
+              <span class="event-time">12:00 – 1:15</span>
+              <h3 class="event-title">Business Law</h3>
+            </article>
+          </div>
+
+          <!-- Wednesday Column -->
+          <div class="day-column" data-day="wed">
+            <article class="event event-class" style="--start: 60; --duration: 75;">
+              <span class="event-time">9:00 – 10:15</span>
+              <h3 class="event-title">Entrepreneurship Seminar</h3>
+            </article>
+
+            <article class="event event-class" style="--start: 180; --duration: 60;">
+              <span class="event-time">11:00 – 12:00</span>
+              <h3 class="event-title">Operations Strategy</h3>
+            </article>
+
+            <article class="event event-chunk" style="--start: 260; --duration: 20;">
+              <span class="event-title">20m: Draft 3 recommendations</span>
+            </article>
+
+            <article class="event event-work" style="--start: 360; --duration: 180;">
+              <span class="event-time">2:00 – 5:00</span>
+              <h3 class="event-title">Part-Time Shift</h3>
+            </article>
+          </div>
+
+          <!-- Thursday Column -->
+          <div class="day-column" data-day="thu">
+            <article class="event event-work" style="--start: 0; --duration: 480;">
+              <span class="event-time">8:00 – 4:00</span>
+              <h3 class="event-title">Work Shift</h3>
+            </article>
+
+            <article class="event event-chunk" style="--start: 510; --duration: 15;">
+              <span class="event-title">10m: Format &amp; proofread</span>
+            </article>
+          </div>
+
+          <!-- Friday Column -->
+          <div class="day-column" data-day="fri">
+            <article class="event event-class" style="--start: 60; --duration: 75;">
+              <span class="event-time">9:00 – 10:15</span>
+              <h3 class="event-title">Entrepreneurship Seminar</h3>
+            </article>
+
+            <article class="event event-class" style="--start: 180; --duration: 60;">
+              <span class="event-time">11:00 – 12:00</span>
+              <h3 class="event-title">Operations Strategy</h3>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
