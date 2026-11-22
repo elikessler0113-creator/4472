@@ -1321,3 +1321,50 @@ function initDemo() {
 }
 
 initDemo();
+  // Actual Course Rubric: 4472/5472 Project Presentation (Grading Template- Presentation.docx)
+  if (/grading[\s_-]*template|presentation|4472/i.test(file.name)) {
+    const weightedDurations =
+      sizeKey === "5-10"
+        ? [10, 5, 10, 10, 10, 5, 10, 10]
+        : sizeKey === "15-20"
+          ? [15, 15, 20, 20, 20, 15, 20, 15]
+          : [15, 10, 15, 15, 15, 10, 15, 15];
+
+    return {
+      title: "4472 Project Presentation",
+      chunks: [
+        {
+          title: "Opening, opportunity & target markets (Wt 2)",
+          duration: weightedDurations[0]
+        },
+        {
+          title: "Define product/service & MVBP slides (Wt 1)",
+          duration: weightedDurations[1]
+        },
+        {
+          title: "Build & test live product prototype (Wt 4)",
+          duration: weightedDurations[2]
+        },
+        {
+          title: "Rehearse live prototype demo flow (Wt 4)",
+          duration: weightedDurations[3]
+        },
+        {
+          title: "Business Model & Osterwalder Canvas (7 marks)",
+          duration: weightedDurations[4]
+        },
+        {
+          title: "Outline marketing & selling strategy (Wt 1)",
+          duration: weightedDurations[5]
+        },
+        {
+          title: "Model Price, LTA, COCA & Profit (Wt 2)",
+          duration: weightedDurations[6]
+        },
+        {
+          title: "Polish slides, print Canvas & Q&A prep (Wt 2)",
+          duration: weightedDurations[7]
+        }
+      ]
+    };
+  }
