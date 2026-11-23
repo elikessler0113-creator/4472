@@ -336,17 +336,39 @@ function scheduleAssignment(assignmentTitle, rawChunks, dueDateStr) {
   const eligibleDays = getEligibleDays(dueDateStr, simDayIndex);
   const newlyScheduled = [];
 
+  // Strict chronological cursor so later chunks never land before earlier ones
+  let minDayPos = 0;
+  let minStartOnMinDay = 0;
+
   rawChunks.forEach((chunk, index) => {
+    // Spread chunks proportionally from start day to due date (e.g. Mon -> Mon -> Tue -> Wed -> Fri)
+    const idealDayPos = Math.floor((index * eligibleDays.length) / rawChunks.length);
+    const preferredStartPos = Math.max(minDayPos, idealDayPos);
+
+    // Search order: try ideal day forward first; if full, pack into earlier days after the cursor
+    const searchOrder = [];
+    for (let p = preferredStartPos; p < eligibleDays.length; p++) searchOrder.push(p);
+    for (let p = minDayPos; p < preferredStartPos; p++) searchOrder.push(p);
+
     let placedSlot = null;
     let placedDay = null;
+    let placedDayPos = minDayPos;
 
-    for (let offset = 0; offset < eligibleDays.length; offset++) {
-      const dayObj = eligibleDays[(index + offset) % eligibleDays.length];
+    for (const dayPos of searchOrder) {
+      const dayObj = eligibleDays[dayPos];
       const dayIdx = getDayIndexByKey(dayObj.key);
-      const slot = findAvailableSlot(dayObj.key, chunk.duration, getMinStartForDay(dayIdx));
+      let minStart = getMinStartForDay(dayIdx);
+
+      // On the same day as the previous chunk, force this chunk to start strictly after it
+      if (dayPos === minDayPos) {
+        minStart = Math.max(minStart, minStartOnMinDay);
+      }
+
+      const slot = findAvailableSlot(dayObj.key, chunk.duration, minStart);
       if (slot) {
         placedSlot = slot;
         placedDay = dayObj;
+        placedDayPos = dayPos;
         break;
       }
     }
@@ -369,11 +391,16 @@ function scheduleAssignment(assignmentTitle, rawChunks, dueDateStr) {
       };
       scheduledChunks.push(newChunk);
       newlyScheduled.push(newChunk);
+
+      // Advance the chronological cursor to the end of this chunk (+ buffer)
+      minDayPos = placedDayPos;
+      minStartOnMinDay = placedSlot.start + chunk.duration + EVENT_BUFFER_MINUTES;
     }
   });
 
   return newlyScheduled;
 }
+
 
 function rescheduleMissedChunks() {
   recentRescueNotices = [];
