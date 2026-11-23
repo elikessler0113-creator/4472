@@ -3,7 +3,7 @@
    ========================================= */
 
 // Paste your deployed Cloudflare Worker URL below:
-const AI_WORKER_URL = "https://paced-rubric-ai.<your-subdomain>.workers.dev";
+const AI_WORKER_URL = "https://green-sun-2578.elikessler0113.workers.dev/";
 const AI_TIMEOUT_MS = 30000; // 30s timeout for PDF analysis
 const MAX_AI_FILE_BYTES = 10 * 1024 * 1024; // 10 MB safety cap
 
